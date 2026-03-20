@@ -196,10 +196,12 @@ struct t5838_aad_d_conf {
 };
 
 struct t5838_drv_data {
+	nrfx_pdm_t pdm;
 	struct onoff_manager *clk_mgr;
 	struct onoff_client clk_cli;
 	struct k_mem_slab *mem_slab;
 	uint32_t block_size;
+	struct k_msgq mem_slab_queue;
 	struct k_msgq rx_queue;
 	bool request_clock : 1;
 	bool configured : 1;
@@ -221,6 +223,7 @@ struct t5838_drv_cfg {
 		PCLK32M_HFXO,
 		ACLK
 	} clk_src;
+	void *mem_reg;
 };
 
 #ifdef CONFIG_T5838_AAD_TRIGGER
